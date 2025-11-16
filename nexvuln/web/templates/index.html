@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexVuln - Vulnerability Scanner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-shield-alt"></i> NexVuln</h1>
+                <p class="subtitle">Mini Nessus Clone - Comprehensive Vulnerability Scanner</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Scan Input Section -->
+            <section class="scan-section">
+                <div class="card">
+                    <h2><i class="fas fa-bullseye"></i> Target Configuration</h2>
+                    <div class="input-group">
+                        <label for="target">Target URL or IP Address</label>
+                        <input type="text" id="target" placeholder="https://example.com or 192.168.1.1" />
+                        <button id="validateBtn" class="btn btn-secondary">
+                            <i class="fas fa-check"></i> Validate
+                        </button>
+                    </div>
+                    <div id="validationResult" class="validation-result"></div>
+                </div>
+
+                <!-- Scan Options -->
+                <div class="card">
+                    <h2><i class="fas fa-cogs"></i> Scan Options</h2>
+                    <div class="scan-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="scanHeaders" checked>
+                            <span><i class="fas fa-heading"></i> HTTP Security Headers</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="scanSSL" checked>
+                            <span><i class="fas fa-lock"></i> SSL/TLS Configuration</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="scanPorts">
+                            <span><i class="fas fa-network-wired"></i> Port Scanner</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="scanDirectories" checked>
+                            <span><i class="fas fa-folder-open"></i> Directory Discovery</span>
+                        </label>
+                    </div>
+                    <div class="port-scan-options" id="portScanOptions" style="display: none;">
+                        <label>Port Scan Type:</label>
+                        <select id="portScanType">
+                            <option value="fast">Fast (Common Ports)</option>
+                            <option value="full">Full (1-65535)</option>
+                        </select>
+                    </div>
+                    <div class="button-group">
+                        <button id="scanBtn" class="btn btn-primary">
+                            <i class="fas fa-play"></i> Start Scan
+                        </button>
+                        <button id="fullScanBtn" class="btn btn-success">
+                            <i class="fas fa-rocket"></i> Full Scan (All Modules)
+                        </button>
+                        <button id="clearBtn" class="btn btn-secondary">
+                            <i class="fas fa-trash"></i> Clear Results
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Progress Section -->
+            <section id="progressSection" class="progress-section" style="display: none;">
+                <div class="card">
+                    <h2><i class="fas fa-spinner fa-spin"></i> Scanning in Progress...</h2>
+                    <div class="progress-bar">
+                        <div id="progressBar" class="progress-fill"></div>
+                    </div>
+                    <p id="progressText" class="progress-text">Initializing scan...</p>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section id="resultsSection" class="results-section" style="display: none;">
+                <div class="card">
+                    <div class="results-header">
+                        <h2><i class="fas fa-chart-line"></i> Scan Results</h2>
+                        <button id="downloadBtn" class="btn btn-download">
+                            <i class="fas fa-download"></i> Download JSON
+                        </button>
+                    </div>
+
+                    <!-- Header Scan Results -->
+                    <div id="headerResults" class="result-panel"></div>
+
+                    <!-- SSL Scan Results -->
+                    <div id="sslResults" class="result-panel"></div>
+
+                    <!-- Port Scan Results -->
+                    <div id="portResults" class="result-panel"></div>
+
+                    <!-- Directory Scan Results -->
+                    <div id="directoryResults" class="result-panel"></div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>NexVuln v1.0.0 | <i class="fas fa-shield-alt"></i> Security Testing Tool</p>
+            <p class="disclaimer">⚠️ Only scan systems you own or have explicit permission to test</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
+
